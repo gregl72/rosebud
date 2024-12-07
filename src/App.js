@@ -7,7 +7,7 @@ import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
-// Configure Amplify with your project’s settings
+// Configure Amplify with your project’s settings / test
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
