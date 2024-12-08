@@ -1,19 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-// Amplify imports
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
-
-// Amplify UI (for authentication and theming)
 import { withAuthenticator, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-// Configure Amplify
+// Ensure Amplify is configured after imports
 Amplify.configure(awsExports);
 
-// Create a custom Amplify UI theme
 const myTheme = createTheme({
   name: 'my-theme',
   tokens: {
@@ -61,13 +55,12 @@ const myTheme = createTheme({
 
 function App({ signOut, user }) {
   return (
-    <div className="App" style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <header className="App-header" style={{ padding: '40px 20px' }}>
-        <img src={logo} className="App-logo" alt="logo" style={{ marginBottom: '20px' }} />
+    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <header style={{ padding: '40px 20px', textAlign: 'center' }}>
         <h1 style={{ color: '#1976d2', marginBottom: '20px' }}>
-          Welcome to rosebud, {user?.username}!
+          Welcome, {user?.username}!
         </h1>
-        
+        <p>Edit <code>src/App.js</code> and save to reload.</p>
         <button 
           onClick={signOut} 
           style={{ 
@@ -96,5 +89,50 @@ export default withAuthenticator(
   ),
   {
     variation: 'default',
+    // Define sign-up form fields
+    formFields: {
+      signUp: {
+        username: {
+          label: 'Username',
+          placeholder: 'Create a username',
+          required: true,
+        },
+        password: {
+          label: 'Password',
+          placeholder: 'Enter your password',
+          required: true,
+        },
+        confirm_password: {
+          label: 'Confirm Password',
+          placeholder: 'Confirm your password',
+          required: true,
+        },
+        email: {
+          label: 'Email',
+          placeholder: 'Enter your email',
+          required: true,
+        },
+        given_name: {
+          label: 'First Name',
+          placeholder: 'Enter your first name',
+          required: true,
+        },
+        family_name: {
+          label: 'Last Name',
+          placeholder: 'Enter your last name',
+          required: true,
+        },
+        phone_number: {
+          label: 'Phone Number',
+          placeholder: 'Enter your phone number',
+          required: true,
+        },
+        address: {
+          label: 'Address',
+          placeholder: 'Enter your address',
+          required: true,
+        },
+      },
+    },
   }
 );
