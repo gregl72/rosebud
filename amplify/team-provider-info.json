@@ -15,6 +15,12 @@
       "auth": {
         "rosebudfa42c361": {},
         "rosebud": {}
+      },
+      "api": {
+        "rosebud": {}
+      },
+      "storage": {
+        "Ads": {}
       }
     }
   }

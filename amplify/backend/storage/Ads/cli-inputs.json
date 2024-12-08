@@ -1,0 +1,14 @@
+{
+  "resourceName": "Ads",
+  "policyUUID": "c1ffb46b",
+  "bucketName": "rosebudads",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

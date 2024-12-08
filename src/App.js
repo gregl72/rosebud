@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import { withAuthenticator, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-// Ensure Amplify is configured after imports
+// Import the modular storage function
+import { uploadData } from '@aws-amplify/storage';
+
 Amplify.configure(awsExports);
 
 const myTheme = createTheme({
@@ -53,7 +55,38 @@ const myTheme = createTheme({
   },
 });
 
+async function uploadFile(file) {
+  try {
+    // 'uploadData' accepts a data object (the file) and a config object.
+    // 'key' defines the S3 object key (typically the file name)
+    // 'contentType' sets the MIME type.
+    const result = await uploadData(file, {
+      key: file.name,
+      contentType: file.type,
+    });
+    console.log('Uploaded:', result);
+  } catch (err) {
+    console.error('Error uploading file:', err);
+  }
+}
+
 function App({ signOut, user }) {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      uploadFile(selectedFile);
+    } else {
+      console.log('No file selected');
+    }
+  };
+
   return (
     <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <header style={{ padding: '40px 20px', textAlign: 'center' }}>
@@ -61,17 +94,44 @@ function App({ signOut, user }) {
           Welcome, {user?.username}!
         </h1>
         <p>Edit <code>src/App.js</code> and save to reload.</p>
-        <button 
-          onClick={signOut} 
-          style={{ 
-            marginTop: '30px', 
-            padding: '10px 20px', 
-            borderRadius: '8px', 
-            border: 'none', 
-            backgroundColor: '#1976d2', 
-            color: '#fff', 
-            fontWeight: '600', 
-            cursor: 'pointer' 
+
+        {/* Show file input and upload button only if user is signed in */}
+        {user && (
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              style={{ marginBottom: '10px' }}
+            />
+            <button
+              onClick={handleUpload}
+              style={{
+                padding: '10px 20px',
+                borderRadius: '8px',
+                border: 'none',
+                backgroundColor: '#1976d2',
+                color: '#fff',
+                fontWeight: '600',
+                cursor: 'pointer',
+                marginRight: '10px',
+              }}
+            >
+              Upload
+            </button>
+          </div>
+        )}
+
+        <button
+          onClick={signOut}
+          style={{
+            marginTop: '30px',
+            padding: '10px 20px',
+            borderRadius: '8px',
+            border: 'none',
+            backgroundColor: '#1976d2',
+            color: '#fff',
+            fontWeight: '600',
+            cursor: 'pointer'
           }}
         >
           Sign Out
@@ -89,7 +149,6 @@ export default withAuthenticator(
   ),
   {
     variation: 'default',
-    // Define sign-up form fields
     formFields: {
       signUp: {
         username: {
