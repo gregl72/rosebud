@@ -1,0 +1,4 @@
+type RosebudAds @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Business_name: String
+}

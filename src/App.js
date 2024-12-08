@@ -2,36 +2,99 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// Amplify and Auth UI imports
+// Amplify imports
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 
-// Configure Amplify with your project’s settings / test
+// Amplify UI (for authentication and theming)
+import { withAuthenticator, ThemeProvider, createTheme } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// Configure Amplify
 Amplify.configure(awsExports);
+
+// Create a custom Amplify UI theme
+const myTheme = createTheme({
+  name: 'my-theme',
+  tokens: {
+    colors: {
+      brand: {
+        primary: { value: '#1976d2' },
+      },
+      background: {
+        primary: { value: '#f0f0f0' },
+      },
+      font: {
+        primary: { value: '#333' },
+      },
+    },
+    components: {
+      button: {
+        primary: {
+          backgroundColor: { value: '{colors.brand.primary}' },
+          borderRadius: { value: '8px' },
+          fontWeight: { value: '600' },
+        },
+      },
+      field: {
+        label: {
+          fontSize: { value: '1rem' },
+          fontWeight: { value: 'bold' },
+        },
+        control: {
+          borderColor: { value: '{colors.brand.primary}' },
+          borderRadius: { value: '8px' },
+          fontSize: { value: '1rem' }
+        },
+      },
+      heading: {
+        1: {
+          fontSize: { value: '1.5rem' },
+          fontWeight: { value: '600' },
+          color: { value: '{colors.brand.primary}' },
+          textAlign: { value: 'center' }
+        }
+      },
+    },
+  },
+});
 
 function App({ signOut, user }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Welcome to Rosebud, {user?.username}!</p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="App" style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      <header className="App-header" style={{ padding: '40px 20px' }}>
+        <img src={logo} className="App-logo" alt="logo" style={{ marginBottom: '20px' }} />
+        <h1 style={{ color: '#1976d2', marginBottom: '20px' }}>
+          Welcome to rosebud, {user?.username}!
+        </h1>
+        
+        <button 
+          onClick={signOut} 
+          style={{ 
+            marginTop: '30px', 
+            padding: '10px 20px', 
+            borderRadius: '8px', 
+            border: 'none', 
+            backgroundColor: '#1976d2', 
+            color: '#fff', 
+            fontWeight: '600', 
+            cursor: 'pointer' 
+          }}
         >
-          Learn React
-        </a>
-        <button onClick={signOut} style={{ marginTop: '20px' }}>Sign Out</button>
+          Sign Out
+        </button>
       </header>
     </div>
   );
 }
 
-// Wrap App with the built-in Authenticator UI
-export default withAuthenticator(App);
+export default withAuthenticator(
+  (props) => (
+    <ThemeProvider theme={myTheme}>
+      <App {...props} />
+    </ThemeProvider>
+  ),
+  {
+    variation: 'default',
+  }
+);
