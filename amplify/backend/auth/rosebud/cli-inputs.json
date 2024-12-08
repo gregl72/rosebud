@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "rosebudfa42c361_identitypool_fa42c361",
+    "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "rosebufa42c361",
-    "userPoolName": "rosebudfa42c361_userpool_fa42c361",
+    "resourceNameTruncated": "rosebu3b531b67",
+    "userPoolName": "rosebud",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,28 +20,33 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "address",
+      "family_name",
+      "given_name",
+      "phone_number",
+      "preferred_username"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
-    "userpoolClientLambdaRole": "rosebufa42c361_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "rosebu3b531b67_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "fa42c361",
-    "resourceName": "rosebudfa42c361",
+    "sharedId": "3b531b67",
+    "resourceName": "rosebud",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "serviceName": "Cognito",
     "usernameAttributes": [
       "email"
     ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
     "userPoolGroupList": [],
-    "serviceName": "Cognito",
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

@@ -23,7 +23,7 @@
     }
   },
   "auth": {
-    "rosebudfa42c361": {
+    "rosebud": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -36,7 +36,12 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "ADDRESS",
+          "FAMILY_NAME",
+          "GIVEN_NAME",
+          "PHONE_NUMBER",
+          "PREFERRED_USERNAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [
