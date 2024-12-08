@@ -58,7 +58,7 @@ function App({ signOut, user }) {
     <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <header style={{ padding: '40px 20px', textAlign: 'center' }}>
         <h1 style={{ color: '#1976d2', marginBottom: '20px' }}>
-          Welcome, {user?.username}!
+          Welcome to rosebud, {user?.username}!
         </h1>
         <p>Edit <code>src/App.js</code> and save to reload.</p>
         <button 
